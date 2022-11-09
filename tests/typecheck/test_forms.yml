@@ -84,7 +84,7 @@
 
         from django import forms
 
-        class SecondModelForm(forms.ModelForm):
+        class SecondModelForm(forms.ModelForm[SecondModel]):
             class Meta:
                 model = SecondModel
                 fields = ["things"]
