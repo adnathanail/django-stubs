@@ -71,3 +71,24 @@
 
         class SuccessMessageFirstView(FormMixin, SuccessMessageMixin):
             pass
+
+-   case: modelform_manytomany_typeinference_error
+    main: |
+        from django.db import models
+        
+        class FirstModel(models.Model):
+            name = models.CharField(max_length=100)
+        
+        class SecondModel(models.Model):
+            things = models.ManyToManyField(FirstModel, blank=True)
+        
+        from django import forms
+        
+        class SecondModelForm(forms.ModelForm):
+            class Meta:
+                model = SecondModel
+                fields = ["things"]
+            
+            def __init__():
+                super().__init__(*args, **kwargs)
+                self.fields['things'].queryset = FirstModel.objects.filter(name="something")
